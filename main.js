@@ -42,6 +42,35 @@ class DoublyLinkedList {
         return previousTail;
     }
 
+    unshift(_data) {
+        const newNode = new Node(_data,null,this.head);
+
+        if(!this.head) {
+            this.tail = newNode;
+        } else {
+            this.head.prev = newNode;
+        }
+        this.head = newNode;
+        this.length++;
+        return this;
+    }
+
+    shift() {
+        if(!this.head) return undefined;
+
+        const previousHead = this.head;
+        if(this.head === this.tail) {
+            this.head = null;
+            this.tail = null;
+        } else {
+            this.head = previousHead.next;
+            this.head.prev = null;
+            previousHead.next = null;
+        }
+        this.length--;
+        return previousHead;
+    }
+
     
 
     // HELPER METHODS
@@ -98,8 +127,12 @@ class DoublyLinkedList {
 }
 
 const dll = new DoublyLinkedList();
-dll.push("one");
-dll.push("two");
-dll.push("three");
-dll.push("four");
+// dll.push("one");
+// dll.push("two");
+// dll.push("three");
+// dll.push("four");
+dll.unshift("four");
+dll.unshift("three");
+dll.unshift("two");
+dll.unshift("one");
 dll.printDetails();
