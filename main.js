@@ -71,6 +71,27 @@ class DoublyLinkedList {
         return previousHead;
     }
 
+    get(_index) {
+        if(_index < 0 || _index >= this.length) return undefined;
+
+        const middleIndex = Math.floor(this.length/2);
+        
+        if(_index < middleIndex) {
+            let currentNode = this.head;
+            for(let i = 0; i < _index; i++) {
+                currentNode = currentNode.next;
+            }
+            return currentNode;
+        } else {
+            let currentNode = this.tail;
+            for(let i = this.length-1; i > _index; i--) {
+                currentNode = currentNode.prev;
+            }
+            return currentNode;
+        }
+
+    }
+
     
 
     // HELPER METHODS
@@ -118,8 +139,8 @@ class DoublyLinkedList {
 
     printDetails() {
         this.printNodes();
-        this.printNexts();
-        this.printPrevs();
+        // this.printNexts();
+        // this.printPrevs();
         console.log(`Head: ${this.head ? this.head.data : null},`,
                     `Tail: ${this.tail ? this.tail.data : null},`,
                     `Length: ${this.length}`);
@@ -127,12 +148,6 @@ class DoublyLinkedList {
 }
 
 const dll = new DoublyLinkedList();
-// dll.push("one");
-// dll.push("two");
-// dll.push("three");
-// dll.push("four");
-dll.unshift("four");
-dll.unshift("three");
-dll.unshift("two");
-dll.unshift("one");
-dll.printDetails();
+dll.push("one");
+//dll.push("two");
+console.log(dll.get(0));
