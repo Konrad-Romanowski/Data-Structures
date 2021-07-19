@@ -88,12 +88,50 @@ class DoublyLinkedList {
                 currentNode = currentNode.prev;
             }
             return currentNode;
-        }
-
+        } 
     }
 
-    
+    set(_index,_data) {
+        const nodeAtIndex = this.get(_index);
+        if (!nodeAtIndex) return undefined;
+        nodeAtIndex.data = _data;
+        return nodeAtIndex;
+    }
 
+    insert(_index,_data) {
+        if (_index < 0 || _index > this.length) return undefined;
+        if (_index === 0) return this.unshift(_data);
+        if (_index === this.length) return this.push(_data);
+
+        const nextNode = this.get(_index);
+        const previousNode = nextNode.prev;
+        const newNode = new Node(_data,previousNode,nextNode);
+        previousNode.next = newNode;
+        nextNode.prev = newNode;
+
+        this.length++;
+        return newNode;
+    }
+
+    remove(_index) {
+        if (_index < 0 || _index >= this.length) return undefined;
+        if (_index === 0) return this.shift();
+        if (_index === this.length-1) return this.pop();
+
+        const nodeAtIndex = this.get(_index);
+        const previousNode = nodeAtIndex.prev;
+        const nextNode = nodeAtIndex.next;
+
+        previousNode.next = nextNode;
+        nextNode.prev = previousNode;
+        this.length--;
+
+        nodeAtIndex.next = null;
+        nodeAtIndex.prev = null;
+
+        return nodeAtIndex;
+    }
+    
     // HELPER METHODS
 
     printNodes() {
@@ -139,15 +177,10 @@ class DoublyLinkedList {
 
     printDetails() {
         this.printNodes();
-        // this.printNexts();
-        // this.printPrevs();
+        this.printNexts();
+        this.printPrevs();
         console.log(`Head: ${this.head ? this.head.data : null},`,
                     `Tail: ${this.tail ? this.tail.data : null},`,
                     `Length: ${this.length}`);
     }
 }
-
-const dll = new DoublyLinkedList();
-dll.push("one");
-//dll.push("two");
-console.log(dll.get(0));
