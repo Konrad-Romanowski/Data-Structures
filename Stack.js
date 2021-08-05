@@ -23,7 +23,7 @@ class Stack {
     }
 
     pop() {
-        if(!this.top) return null;
+        if(!this.top) return undefined;
         const previousTop = this.top;
         if(this.top === this.bottom) {
             this.top = null;
