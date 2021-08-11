@@ -54,4 +54,21 @@ class BinarySearchTree {
         }
         return false;
     }
+
+        //Breadth First Search
+        BFS() {
+            let treeItems = [];
+    
+            if (!this.root) return treeItems;
+            let queue = [this.root];
+            let currentNode = this.root;
+    
+            while(queue.length > 0) {
+                currentNode = queue.shift();
+                treeItems.push(currentNode.data);
+                if(currentNode.left) queue.push(currentNode.left);
+                if(currentNode.right) queue.push(currentNode.right);
+            }
+            return treeItems;
+        }
 }
