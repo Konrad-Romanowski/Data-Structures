@@ -55,20 +55,65 @@ class BinarySearchTree {
         return false;
     }
 
-        //Breadth First Search
-        BFS() {
-            let treeItems = [];
-    
-            if (!this.root) return treeItems;
-            let queue = [this.root];
-            let currentNode = this.root;
-    
-            while(queue.length > 0) {
-                currentNode = queue.shift();
-                treeItems.push(currentNode.data);
-                if(currentNode.left) queue.push(currentNode.left);
-                if(currentNode.right) queue.push(currentNode.right);
-            }
-            return treeItems;
+    //Breadth First Search
+    BFS() {
+        let treeItems = [];
+
+        if (!this.root) return treeItems;
+        let queue = [this.root];
+        let currentNode = this.root;
+
+        while(queue.length > 0) {
+            currentNode = queue.shift();
+            treeItems.push(currentNode.data);
+            if(currentNode.left) queue.push(currentNode.left);
+            if(currentNode.right) queue.push(currentNode.right);
         }
+        return treeItems;
+    }
+
+    //Depth First Search - Pre Order
+    DFSPreOrder() {
+        let treeItems = [];
+        if (!this.root) return treeItems;
+
+        function traverse(_node) {
+            treeItems.push(_node.data);
+            if(_node.left) traverse(_node.left);
+            if(_node.right) traverse(_node.right);
+        }
+
+        traverse(this.root);
+        return treeItems;
+    }
+
+    //Depth First Search - Post Order
+    DFSPostOrder() {
+        let treeItems = [];
+        if(!this.root) return treeItems;
+
+        function traverse(_node) {
+            if(_node.left) traverse(_node.left);
+            if(_node.right) traverse(_node.right);
+            treeItems.push(_node.data);
+        }
+
+        traverse(this.root);
+        return treeItems;
+    }
+
+    //Depth First Search - In Order
+    DFSInOrder() {
+        let treeItems = [];
+        if(!this.root) return treeItems;
+
+        function traverse(_node) {
+            if(_node.left) traverse(_node.left);
+            treeItems.push(_node.data);
+            if(_node.right) traverse(_node.right);
+        }
+
+        traverse(this.root);
+        return treeItems;
+    }
 }
