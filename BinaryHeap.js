@@ -8,10 +8,8 @@ class MaxBinaryHeap {
     }
 
     bubbleUp(_childIndex,_parentIndex) {
-        while(_childIndex > _parentIndex) {
-            if(this.data[_childIndex] > this.data[_parentIndex]) {
-                this.swapNodes(_childIndex,_parentIndex);
-            }
+        while(this.data[_childIndex] > this.data[_parentIndex]) {
+            this.swapNodes(_childIndex,_parentIndex);
             _childIndex = _parentIndex;
             _parentIndex = Math.floor((_childIndex - 1)/2);
         }
