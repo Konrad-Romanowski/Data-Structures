@@ -1,4 +1,4 @@
-// Priority Queue implemented on the Min Binary Heap
+// Priority Queue implemented on the Min Binary Heap - the lower priority value of an item the higher importance
 // Please note that in this implementation items with same priority are not always dequeued with the insertion order
 
 class Node {
