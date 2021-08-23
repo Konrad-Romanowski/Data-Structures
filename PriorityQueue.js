@@ -1,3 +1,6 @@
+// Priority Queue implemented on the Min Binary Heap
+// Please note that in this implementation items with same priority are not always dequeued with the insertion order
+
 class Node {
     constructor(_item,_priority) {
         this.item = _item;
@@ -27,9 +30,9 @@ class PriorityQueue {
         }
     }
 
-    bubbleDown(_parentIndex) {
-        let leftChildIindex = _parentIndex * 2 + 1;
-        let rightChildIndex = _parentIndex * 2 + 2;
+    bubbleDown(_parentItemIndex) {
+        let leftChildIindex = _parentItemIndex * 2 + 1;
+        let rightChildIndex = _parentItemIndex * 2 + 2;
 
         if(leftChildIindex > this.items.length - 1) return;
 
@@ -42,9 +45,9 @@ class PriorityQueue {
         }
         let itemToSwapPriority = this.items[indexToSwap].priority;
         
-        let parentPriority = this.items[_parentIndex].priority;
-        if(itemToSwapPriority < parentPriority) {
-            this.swapItems(_parentIndex,indexToSwap);
+        let parentItemPriority = this.items[_parentItemIndex].priority;
+        if(itemToSwapPriority < parentItemPriority) {
+            this.swapItems(_parentItemIndex,indexToSwap);
             this.bubbleDown(indexToSwap);
         }
     }
@@ -53,9 +56,9 @@ class PriorityQueue {
         let newItem = new Node(_item,_priority);
         this.items.push(newItem);
 
-        let newItemInitialIndex = this.items.length - 1;
+        let newItemIndex = this.items.length - 1;
 
-        this.bubbleUp(newItemInitialIndex);
+        this.bubbleUp(newItemIndex);
 
         return this;
     }
