@@ -20,6 +20,14 @@ class HashTable {
         const hashedKey = this.hash(_key);
 
         if(!this.keyMap[hashedKey]) this.keyMap[hashedKey] = new Array();
+
+        //If the given key already exist in the hash table - update it's value
+        for(let i = 0; i < this.keyMap[hashedKey].length; i++) {
+            if(this.keyMap[hashedKey][i][0] === _key) {
+                this.keyMap[hashedKey][i][1] = _value;
+                return;
+            }
+        }
         this.keyMap[hashedKey].push([_key,_value]);
     }
 
@@ -35,4 +43,37 @@ class HashTable {
         }
         return value;
     }
+
+    keys() {
+        let keysArray = [];
+
+        for(let i = 0; i < this.keyMap.length; i++) {
+            if(this.keyMap[i]) {
+                keysArray.push(...this.keyMap[i]);
+            }
+        }
+
+        for(let i = 0; i < keysArray.length; i++) {
+            keysArray[i] = keysArray[i][0];
+        }
+
+        return keysArray;
+    }
+
+    values() {
+        let valuesArray = [];
+
+        for(let i = 0; i < this.keyMap.length; i++) {
+            if(this.keyMap[i]) {
+                valuesArray.push(...this.keyMap[i]);
+            }
+        }
+
+        for(let i = 0; i < valuesArray.length; i++) {
+            valuesArray[i] = valuesArray[i][1];
+        }
+
+        return valuesArray;
+    }
+
 }
