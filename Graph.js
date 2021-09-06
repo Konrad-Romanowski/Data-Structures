@@ -43,4 +43,14 @@ class Graph {
             }
         }
     }
+
+    removeVertex(_vertexToRemove) {
+        if(!this.adjacencyList.hasOwnProperty(_vertexToRemove)) return;
+
+        for(let i = this.adjacencyList[_vertexToRemove].length - 1; i >= 0; i--) {
+            this.removeEdge(this.adjacencyList[_vertexToRemove][i],_vertexToRemove);
+        }
+
+        delete this.adjacencyList[_vertexToRemove];
+    }
 }
