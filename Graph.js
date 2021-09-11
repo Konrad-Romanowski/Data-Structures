@@ -1,4 +1,4 @@
-// Simple implementation of an indirected graph using Adjacency List
+// Simple implementation of an unweighted indirected graph using Adjacency List
 class Graph {
     constructor() {
         this.adjacencyList = {};
@@ -52,5 +52,25 @@ class Graph {
         }
 
         delete this.adjacencyList[_vertexToRemove];
+    }
+    
+    // Depth First Search traverse (recursive)
+    DFS_recursive(_startingVertex){
+        let verticesList = [];
+        let visitedVertices = {};
+
+        const traverse = _vertex => {
+            if(_vertex === []) return;
+            verticesList.push(_vertex);
+            visitedVertices[_vertex] = true;
+
+            this.adjacencyList[_vertex].forEach(adjacentVertex => {
+                if(!visitedVertices[adjacentVertex]) traverse(adjacentVertex);
+            });
+        }
+
+        traverse(_startingVertex);
+
+        return verticesList;
     }
 }
