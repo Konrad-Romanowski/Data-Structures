@@ -73,4 +73,27 @@ class Graph {
 
         return verticesList;
     }
+
+    DFS_iterative(_startingVertex) {
+        let stack = [_startingVertex];
+        let verticesList = [];
+        let visitedVertices = {};
+        let currentVertex;
+
+        visitedVertices[_startingVertex] = true;
+
+        while(stack.length > 0) {
+            currentVertex = stack.pop();
+            verticesList.push(currentVertex);
+
+            this.adjacencyList[currentVertex].forEach(adjacentVertex => {
+                if(!visitedVertices[adjacentVertex]) {
+                    stack.push(adjacentVertex);
+                    visitedVertices[adjacentVertex] = true;
+                }
+            });
+        }
+
+        return verticesList;
+    }
 }
