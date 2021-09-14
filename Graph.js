@@ -60,7 +60,6 @@ class Graph {
         let visitedVertices = {};
 
         const traverse = _vertex => {
-            if(_vertex === []) return;
             verticesList.push(_vertex);
             visitedVertices[_vertex] = true;
 
@@ -74,6 +73,7 @@ class Graph {
         return verticesList;
     }
 
+    // Depth First Search traverse (iterative)
     DFS_iterative(_startingVertex) {
         let stack = [_startingVertex];
         let verticesList = [];
@@ -96,4 +96,29 @@ class Graph {
 
         return verticesList;
     }
+
+    // Breadth First Search traverse (iterative)
+    BFS_iterative(_startingVertex) {
+        let queue = [_startingVertex];
+        let verticesList = [];
+        let visitedVertices = {};
+        let currentVertex;
+
+        visitedVertices[_startingVertex] = true;
+
+        while(queue.length > 0) {
+            currentVertex = queue.shift();
+            verticesList.push(currentVertex);
+
+            this.adjacencyList[currentVertex].forEach(adjacentVertex => {
+                if(!visitedVertices[adjacentVertex]) {
+                    queue.push(adjacentVertex);
+                    visitedVertices[adjacentVertex] = true;
+                }
+            });
+        }
+
+        return verticesList;
+    }
+
 }
