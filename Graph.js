@@ -97,6 +97,34 @@ class Graph {
         return verticesList;
     }
 
+    // Breadth First Search traverse (recursive)
+    BFS_recursive(_startingVertex) {
+        let verticesList = [_startingVertex];
+        let visitedVertices = {};
+        let queue = [_startingVertex];
+
+        visitedVertices[_startingVertex] = true;
+
+        const traverse =  _queue => {
+            if(_queue.length < 1) return;
+            let currentVertex = _queue.shift();
+
+            this.adjacencyList[currentVertex].forEach(adjacentVertex => {
+                if(!visitedVertices[adjacentVertex]) {
+                    verticesList.push(adjacentVertex);
+                    visitedVertices[adjacentVertex] = true;
+                    _queue.push(adjacentVertex);
+                }
+            });
+            
+            traverse(_queue);
+        }
+        
+        traverse(queue);
+
+        return verticesList;
+    }
+
     // Breadth First Search traverse (iterative)
     BFS_iterative(_startingVertex) {
         let queue = [_startingVertex];
