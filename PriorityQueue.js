@@ -74,3 +74,5 @@ class PriorityQueue {
         return firstItem;
     }
 }
+
+module.exports = {Node, PriorityQueue};
