@@ -1,3 +1,6 @@
+// import Priority Queue data structore for the shortestPath method
+let {Node, PriorityQueue} = require('./PriorityQueue');
+
 // Simple implementation of a weighted indirected graph using Adjacency List
 class WeightedGraph {
     constructor() {
@@ -65,5 +68,62 @@ class WeightedGraph {
         }
 
         delete this.adjacencyList[_vertexToRemove];
+    }
+
+    // Dijkstra's shortest path algorithm
+    shortestPath(_startingVertex,_endingVertex) {
+        const verticesToVisit = new PriorityQueue();
+        let shortestDistanceTo = {};
+        let previous = {};
+        let path = [];
+        let currentVertex;
+        let newDistance;
+        
+        // Set shortest distances as Infinity and previous vertices to null
+        for(let vertex in this.adjacencyList) {
+            shortestDistanceTo[vertex] = Infinity;
+            previous[vertex] = null;
+        }
+        shortestDistanceTo[_startingVertex] = 0;
+        // Enqueue vertices to priority queue
+        for(let vertex in shortestDistanceTo) {
+            verticesToVisit.enqueue(vertex,shortestDistanceTo[vertex]);
+        }
+
+        while(verticesToVisit.items.length > 0) {
+            currentVertex = verticesToVisit.dequeue().item;
+
+            if(currentVertex === _endingVertex) {
+                // Populate path with the vertices
+                while(currentVertex) {
+                    path.push(currentVertex);
+                    currentVertex = previous[currentVertex];
+                }
+                path.reverse();
+                // Stop looping other vertices in the priority queue
+                break;
+            }
+
+            if(currentVertex || shortestDistanceTo[currentVertex] !== Infinity) {
+                for(let adjacentVertex in this.adjacencyList[currentVertex]) {
+                    // Assign neighboring vertex to a separate variable
+                    let neighbor = this.adjacencyList[currentVertex][adjacentVertex];
+                    // Calculate the distance from the _startingVertex to the neighbor of currentVertex
+                    newDistance = shortestDistanceTo[currentVertex] + neighbor.weight;
+    
+                    // Check if newDistance from _startingVertex to the neighbor is less than currently known shortest distance to that neighbor
+                    if(newDistance < shortestDistanceTo[neighbor.node]) {
+                        // Update the shortestDistanceTo object with new shorter distance
+                        shortestDistanceTo[neighbor.node] = newDistance;
+                        // Update the previous object to contain new vertex
+                        previous[neighbor.node] = currentVertex;
+                        // Enqueue the neighbor with new shortest distance from the _startingVertex
+                        verticesToVisit.enqueue(neighbor.node,newDistance);
+                    }
+                }
+            }
+        }
+        console.log(path);
+        return shortestDistanceTo[_endingVertex];
     }
 }
