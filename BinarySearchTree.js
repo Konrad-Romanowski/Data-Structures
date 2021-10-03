@@ -55,6 +55,28 @@ class BinarySearchTree {
         return false;
     }
 
+    findMin() {
+        if (!this.root) return null;
+
+        let currentNode = this.root;
+        while(currentNode.left) {
+            currentNode = currentNode.left;
+        }
+
+        return currentNode.data;
+    }
+
+    findMax() {
+        if (!this.root) return null;
+
+        let currentNode = this.root;
+        while(currentNode.right) {
+            currentNode = currentNode.right;
+        }
+
+        return currentNode.data;
+    }
+
     //Breadth First Search
     BFS() {
         let treeItems = [];
